@@ -2,9 +2,9 @@ use std::io;
 
 fn main() {
 
-    println!("Which Fibonacci number would you like?");
 
     loop {
+        println!("Which Fibonacci number would you like?");
         let mut user_input = String::new();
         io::stdin().read_line(&mut user_input)
             .expect("failed to read line;");
@@ -16,11 +16,11 @@ fn main() {
         if user_input.signum() == -1 {
             let calc: i64 = calc_fib(user_input.wrapping_neg());
             let answer: i64 = negafib_adjustment(user_input, calc);
-            println!("{}", answer);
+            println!("number {} in the Fibonacci sequence is {}", user_input, answer);
             break;
         } else {
             let answer: i64 = calc_fib(user_input);
-            println!("{}", answer);
+            println!("number {} in the Fibonacci sequence is {}", user_input, answer);
             break;
         }
     }
