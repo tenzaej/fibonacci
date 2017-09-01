@@ -18,21 +18,23 @@ fn main() {
 }
 
 fn calc_fibonacci_from_position(x: i64) -> i64 {
-    if x == 0 {
-        0
-    } else if x == 1 {
-        1
-    } else {
-        let mut last_last: i64 = 0;
-        let mut last: i64 = 1;
-        let mut now: i64 = 0;
-        for _ in 2..(x + 1) {
-            now = last + last_last;
-            last_last = last;
-            last = now
-        }
-        now
+    match x {
+        0 => 0,
+        1 => 1,
+        _ => calc_fibonacci_actually(x)
     }
+}
+
+fn calc_fibonacci_actually(x: i64) -> i64 {
+    let mut last_last: i64 = 0;
+    let mut last: i64 = 1;
+    let mut now: i64 = 0;
+    for _ in 2..(x + 1) {
+        now = last + last_last;
+        last_last = last;
+        last = now
+    }
+    now
 }
 
 fn neg_or_pos_fib(user_input: i64) -> i64 {
