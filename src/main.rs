@@ -1,8 +1,6 @@
 use std::io;
 
 fn main() {
-
-
     loop {
         println!("Which Fibonacci number would you like?");
         let mut user_input = String::new();
@@ -13,36 +11,37 @@ fn main() {
             Err(_) => continue,
         };
 
-        if user_input.signum() == -1 {
-            let calc: i64 = calc_fib(user_input.wrapping_neg());
-            let answer: i64 = negafib_adjustment(user_input, calc);
-            println!("number {} in the Fibonacci sequence is {}", user_input, answer);
-            break;
-        } else {
-            let answer: i64 = calc_fib(user_input);
-            println!("number {} in the Fibonacci sequence is {}", user_input, answer);
-            break;
-        }
+        let answer = neg_or_pos_fib(user_input);
+        println!("number {} in the Fibonacci sequence is {}", user_input, answer);
+        break;
     }
 }
 
-fn calc_fib(x: i64) -> i64 {
-    let mut now: i64 = 0;
-    let mut last_last: i64 = 0;
-    let mut last: i64 = 1;
-
+fn calc_fibonacci_from_position(x: i64) -> i64 {
     if x == 0 {
-        now = 0;
+        0
     } else if x == 1 {
-        now = 1;
+        1
     } else {
+        let mut last_last: i64 = 0;
+        let mut last: i64 = 1;
+        let mut now: i64 = 0;
         for _ in 2..(x + 1) {
             now = last + last_last;
             last_last = last;
-            last = now;
-        };
+            last = now
+        }
+        now
     }
-    now
+}
+
+fn neg_or_pos_fib(user_input: i64) -> i64 {
+    if user_input.signum() == -1 {
+        let calc: i64 = calc_fibonacci_from_position(user_input.wrapping_neg());
+        negafib_adjustment(user_input, calc)
+    } else {
+        calc_fibonacci_from_position(user_input)
+    }
 }
 
 fn negafib_adjustment(player_choice: i64, x: i64) -> i64 {
