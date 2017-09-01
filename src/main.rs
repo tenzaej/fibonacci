@@ -2,9 +2,9 @@ use std::io;
 
 fn main() {
 
-    println!("Which Fibonacci number would you like?");
 
     loop {
+        println!("Which Fibonacci number would you like?");
         let mut user_input = String::new();
         io::stdin().read_line(&mut user_input)
             .expect("failed to read line;");
